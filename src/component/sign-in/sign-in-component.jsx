@@ -3,7 +3,9 @@ import React from 'react'
 import './sign-in-style.scss'
 import FormInput from '../../component/form-input/form-input-component'
 import CustomButton from'../../component/custom-button-component/custom-button-component'
-import {signInWithGoogle} from '../../firebase/firebase.utils'
+import {auth ,signInWithGoogle} from '../../firebase/firebase.utils'
+
+
 class Signin extends React.Component{
 
     constructor( props){
@@ -18,10 +20,32 @@ class Signin extends React.Component{
     
 
     }
-    handelSubmit =(event)=>{
+    handelSubmit = async event=>{
           
            event.preventDefault();
-           this.setState({email:'' ,password:''})
+           
+           const {email,password} = this.state;
+
+           try {
+
+           await auth.signInWithEmailAndPassword(email,password)
+            this.setState({email:'' ,password:''})
+         
+         
+               
+           
+           } catch (error) {
+            
+            
+             if(error.code === 'auth/user-not-found')
+             {
+                 alert(`Please check the username password`);
+                 this.setState({email:'' ,password:''})
+
+             }
+           }
+
+         
     }
 
     handelChange= event=>{
