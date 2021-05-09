@@ -14,11 +14,22 @@ const CartReducer=(state=INITIAL_STATE,action)=>{
                ...state,
                hidden: !state.hidden
            }
-           case CartActionType.ADD_ITEM:
+
+        case CartActionType.ADD_ITEM:
                return{
                    ...state,
                    cartItem:addItemToCart(state.cartItem, action.payload)
                }
+               // check the id and delete it from state , here i am using filter to remove and passing it new object
+        case CartActionType.DELETE_ITEM_FROM_CART:
+             return{
+                 ...state,
+                 cartItem: state.cartItem.filter
+                 (
+                     cartItem=> cartItem.id !== action.payload.id
+                 )
+             }
+
 
         default:
            return state
