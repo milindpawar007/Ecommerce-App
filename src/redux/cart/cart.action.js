@@ -13,3 +13,9 @@ export const DELETE_ITEM_FROM_CART=(item)=>({
     type: CartActionType.DELETE_ITEM_FROM_CART,
     payload:item
 })
+
+
+export const REDUCE_THE_QUANTITY=(item)=>({
+    type: CartActionType.REDUCE_THE_QUANTITY,
+    payload:item
+})
